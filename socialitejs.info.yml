@@ -1,0 +1,5 @@
+name: 'Socialite JS'
+type: module
+description: 'Socialite.js integration with Drupal'
+core: 8.x
+configure: socialitejs.settings

@@ -1,0 +1,14 @@
+<?php
+
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function socialitejs_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.socialitejs':
+      return '<p>'.  t("Socialite.js - integration with Drupal 7") .'</p>';
+}

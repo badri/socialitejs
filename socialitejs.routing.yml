@@ -1,0 +1,8 @@
+socialitejs.settings:
+  path: 'admin/config/content/socialitejs'
+  defaults:
+    _form: 'Drupal\socialitejs\Form\SocialitejsSettingsForm'
+    _title: 'SocialiteJS'
+  requirements:
+    _permission: 'administer socialite.js'
+

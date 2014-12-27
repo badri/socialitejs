@@ -1,0 +1,4 @@
+services:
+  socialitejs.link:
+    class: Drupal\socialitejs\SocialitejsLink
+    arguments: ['@config.factory', '@path.alias_storage']

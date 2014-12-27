@@ -1,0 +1,9 @@
+socialitejs:
+  remote: https://github.com/tmort/Socialite
+  version: 2.1
+  js:
+    js/socialitejs.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal

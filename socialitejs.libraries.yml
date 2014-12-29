@@ -3,6 +3,9 @@ socialitejs:
   version: 2.1
   js:
     js/socialitejs.js: {}
+  css:
+    theme:
+      css/socialitejs.css: {}
   dependencies:
     - core/jquery
     - core/jquery.once

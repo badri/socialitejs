@@ -26,31 +26,30 @@ class SocialitejsBlock extends BlockBase {
   public function build() {
     $socialitejs_config = \Drupal::config('socialitejs.settings');
 
-      $node = new stdClass;
+    $node = new stdClass;
 
-      $node->link = Url::fromRoute('<current>', array(), array('absolute' => TRUE));
+    $node->link = Url::fromRoute('<current>', array(), array('absolute' => TRUE));
 
-          $request = \Drupal::request();
-          $route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT);
-          $node->title = \Drupal::service('title_resolver')->getTitle($request, $route);
+    $request = \Drupal::request();
+    $route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT);
+    $node->title = \Drupal::service('title_resolver')->getTitle($request, $route);
 
-      $sites = $socialitejs_config->get('socialitejs_sites');
-      foreach ($sites as $site => $enabled) {
-        if ($enabled) {
-          $items[] = array(
-            '#markup' => drupal_render(_socialitejs_link($site, $node)),
-            '#wrapper_attributes' => array('class' => array('socialite-item')),
-          );
-        }
+    $sites = $socialitejs_config->get('socialitejs_sites');
+    foreach ($sites as $site => $enabled) {
+      if ($enabled) {
+        $items[] = array(
+          '#markup' => drupal_render(\Drupal::service('socialitejs.link')->getLink($site, $node)),
+          '#wrapper_attributes' => array('class' => array('socialite-item')),
+        );
       }
+    }
 
-      $attributes = array('class' => array('socialitejs', 'layout' . $socialitejs_config->get('socialitejs_layout')));
+    $attributes = array('class' => array('socialitejs', 'layout' . $socialitejs_config->get('socialitejs_layout')));
 
     return array(
       '#theme' => 'item_list',
       '#items' => $items,
       '#attributes' => $attributes
-      ),
     );
   }
 }

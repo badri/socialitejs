@@ -12,3 +12,24 @@ function socialitejs_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.socialitejs':
       return '<p>'.  t("Socialite.js - integration with Drupal 7") .'</p>';
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for node entities.
+ */
+function socialitejs_node_view(array &$build, EntityInterface $node, EntityViewDisplayInterface $display, $view_mode) {
+  if (($view_mode == 'full') || ($view_mode == 'teaser' && \Drupal::config('socialitejs.settings')->get('socialitejs_teaser'))) {
+    $field = array(
+      'entity' => $node,
+      'formatter' => 'socialitejs',
+    );
+    $node->content['socialitejs'] = \Drupal::service('socialitejs.link')->getWidgets($field);
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function socialitejs_page_attachments_alter(array &$page) {
+  $page['#attached']['library'][] = 'socialitejs/socialitejs';
+  $page['socialitejs']['#attached']['drupalSettings']['loading'] = \Drupal::config('socialitejs.settings')->get('socialitejs_loading');
+}

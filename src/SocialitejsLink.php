@@ -111,4 +111,37 @@ class SocialitejsLink {
       }
     return $link;
   }
+
+  public function getWidgets($field) {
+    $socialitejs_config = $this->configFactory->get('socialitejs.settings');
+    if ($field['formatter'] == 'socialitejs') {
+      $node = $field['entity'];
+      $nodeTypes =  $socialitejs_config->get('socialitejs_node_types');
+      $build = array();
+      $items = array();
+
+      if (isset($nodeTypes[$node->type]) && ($nodeTypes[$node->type])) {
+        $sites = $socialitejs_config->get('socialitejs_sites');
+        foreach ($sites as $site => $enabled) {
+          if ($enabled) {
+            $items[] = array(
+              'data' => drupal_render($this->getLink($site, $node)),
+              'class' => array('socialite-item'),
+            );
+          }
+        }
+        $box = $socialitejs_config->get('socialitejs_layout');
+        if (!empty($items)) {
+          $attr = array('class' => array('socialitejs', 'layout'.$box));
+          $item_list = array(
+            '#theme' => 'item_list',
+            '#items' => $items,
+            '#attributes' => $attr
+          );
+          return drupal_render($item_list);
+        }
+      }
+    }
+  }
+
 }
